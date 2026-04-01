@@ -124,3 +124,76 @@ Open browser developer tools (F12) for console logs and network inspection.
 - "Database locked" - Delete `./data` folder and restart
 - "Network connection refused" - Ensure both containers are on the same network
 - "Build fails" - Try `docker compose down -v` then `docker compose up --build`
+
+## API Reference (curl / Postman)
+
+Base URL: `http://localhost:5148/api/taskitems`
+
+### Create a task
+
+```bash
+curl -X POST http://localhost:5148/api/taskitems \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "My first task",
+    "description": "Something to do",
+    "userId": "user123"
+  }'
+```
+
+### Get all tasks
+
+```bash
+curl http://localhost:5148/api/taskitems
+```
+
+### Get task by ID
+
+```bash
+curl http://localhost:5148/api/taskitems/1
+```
+
+### Get tasks by user ID
+
+```bash
+curl http://localhost:5148/api/taskitems/user/user123
+```
+
+### Update a task
+
+```bash
+curl -X PUT http://localhost:5148/api/taskitems/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title",
+    "description": "Updated description",
+    "isCompleted": true
+  }'
+```
+
+### Delete a task
+
+```bash
+curl -X DELETE http://localhost:5148/api/taskitems/1
+```
+
+### Postman
+
+Import these as individual requests in Postman, or use the collection URL format:
+
+- **POST** `http://localhost:5148/api/taskitems` - Body: raw JSON
+- **GET** `http://localhost:5148/api/taskitems` - No body
+- **GET** `http://localhost:5148/api/taskitems/1` - No body
+- **GET** `http://localhost:5148/api/taskitems/user/user123` - No body
+- **PUT** `http://localhost:5148/api/taskitems/1` - Body: raw JSON
+- **DELETE** `http://localhost:5148/api/taskitems/1` - No body
+
+All responses follow this format:
+
+```json
+{
+  "data": { ... },
+  "error": null,
+  "statusCode": 200
+}
+```
