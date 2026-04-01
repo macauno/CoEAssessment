@@ -2,6 +2,10 @@
 
 This repository hosts the projects used to evaluate members of the Unosquare CoE .NET team.
 
+> **New here?** Jump to the [full setup guide (SETUP.md)](SETUP.md) for detailed configuration, API examples (curl/Postman), debugging, and troubleshooting.
+>
+> Just want to run it? Follow the **Quick Start** below.
+
 ## Quick Start (Recommended - Docker)
 
 ```bash
@@ -20,7 +24,7 @@ The app will build both containers, run database migrations, and be ready in ~1-
 - .NET 10 SDK - https://dotnet.microsoft.com/download/dotnet
 - Node.js 18+ - https://nodejs.org
 
-### Backend
+### 1. Start the Backend
 ```bash
 cd code/backend/TA-API
 dotnet build
@@ -28,13 +32,20 @@ dotnet run
 ```
 Runs on http://localhost:5148
 
-### Frontend (React)
+### 2. Start the Frontend (new terminal)
 ```bash
 cd code/frontend/react
 npm install
 npm start
 ```
 Runs on http://localhost:1234
+
+### 3. Test the API
+```bash
+curl http://localhost:5148/api/taskitems/user/user123
+```
+
+> For all API endpoints and Postman setup, see [SETUP.md - API Reference](SETUP.md#api-reference-curl--postman)
 
 ## Architecture
 
@@ -83,6 +94,13 @@ To change it, edit `code/frontend/react/src/app/pages/TaskItems/TaskItemsPage.js
 
 ## Running Tests
 
+### Backend (.NET xUnit)
+```bash
+cd code/backend
+dotnet test
+```
+
+### Frontend (Jest)
 ```bash
 cd code/frontend/react
 npm test
@@ -95,15 +113,14 @@ npm test
 - **Database errors** - Migrations run automatically on app startup
 - **Port already in use** - Change ports in docker-compose.yml or stop conflicting services
 
-## More Info
+> For more troubleshooting tips, see [SETUP.md - Troubleshooting](SETUP.md#troubleshooting)
 
-- See DOCKER-SETUP.md for detailed Docker commands
-- See SETUP.md for advanced development configuration
+## Guides
 
-## Assessment Delivery Guidance
-
-**Priority** - Focus on completing all requested functionality first.
-Additional architectural improvements are appreciated but will not compensate for missing core requirements.
+| Guide | Description |
+|-------|-------------|
+| [SETUP.md](SETUP.md) | Full development setup, API reference (curl/Postman), debugging, troubleshooting |
+| [DOCKER-SETUP.md](DOCKER-SETUP.md) | Docker commands, container management, environment variables |
 
 ## Versions
 
