@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-const unosquarelogo = URL("../../../assets/unosquare.webp", import.meta.url);
+// const unosquarelogo = URL("../../../assets/unosquare.webp", import.meta.url);
 export function NavigationComponent() {
     const location = useLocation();
 
@@ -10,10 +10,10 @@ export function NavigationComponent() {
     return (
         <nav className="navbar navbar-expand-md bg-body-tertiary">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">
+                {/* <Link className="navbar-brand" to="/">
                     <img src={unosquarelogo} alt="Logo" width="150" height="50" />
                     Technical Assessment
-                </Link>
+                </Link> */}
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarMain" aria-controls="navBarMain" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -35,7 +35,15 @@ export function NavigationComponent() {
                             >
                                 About
                             </Link>
-                        </li>                       
+                        </li>     
+                        <li className="nav-item">
+                            <Link
+                                className={`nav-link ${isLinkActive("/tasks") ? "active" : ""}`}
+                                to="/tasks"
+                            >
+                                Tasks
+                            </Link>
+                        </li>                   
                             
                         <li className="nav-item">
                             <a href="https://dev.azure.com/UnoquareCSharpCoE" rel="noreferrer" target="_blank" className="nav-link">🌐 Azure DevOps</a>

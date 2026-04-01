@@ -17,6 +17,12 @@
     "react-router": "7.9.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "babel-jest": "^29.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "parcel": "2.16.1",
     "process": "0.11.10",
     "typescript": "5.9.3"
@@ -24,7 +30,9 @@
   "private": true,
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "type": "module",
   "version": "2025.11.25",

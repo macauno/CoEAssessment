@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import { NavigationComponent } from "./components/NavigationComponent";
 import { AboutPage } from "./pages/About";
 import { HomePage } from "./pages/Home";
+import { TaskItemsPage } from "./pages/TaskItems/TaskItemsPage";
 
 const createAppRouter = () => createBrowserRouter([
     {
@@ -16,7 +17,11 @@ const createAppRouter = () => createBrowserRouter([
             {
                 path: "about",
                 element: <AboutPage />
-            }
+            },
+            {
+                path: "tasks",
+                element: <TaskItemsPage />
+            },
         ]
     }
 ]);

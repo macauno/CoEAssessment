@@ -1,86 +1,112 @@
 # Unosquare CoE .NET Technical Assessment
-This repository hosts the projects used to evaluate members of the Unosquare CoE .NET
+
+This repository hosts the projects used to evaluate members of the Unosquare CoE .NET team.
+
+## Quick Start (Recommended - Docker)
+
+```bash
+docker compose up --build
+```
+
+Then open:
+- **Frontend** - http://localhost:3000
+- **Backend API** - http://localhost:5148
+
+The app will build both containers, run database migrations, and be ready in ~1-2 minutes.
+
+## Local Development Setup (Without Docker)
+
+### Prerequisites
+- .NET 10 SDK - https://dotnet.microsoft.com/download/dotnet
+- Node.js 18+ - https://nodejs.org
+
+### Backend
+```bash
+cd code/backend/TA-API
+dotnet build
+dotnet run
+```
+Runs on http://localhost:5148
+
+### Frontend (React)
+```bash
+cd code/frontend/react
+npm install
+npm start
+```
+Runs on http://localhost:1234
+
+## Architecture
+
+- **Backend** - .NET 10 ASP.NET Core API with Entity Framework Core + SQLite
+- **Frontend** - React 19 with Parcel bundler (plain JavaScript)
+- **Database** - SQLite (auto-initialized via EF Core migrations on startup)
+- **Containerization** - Docker Compose orchestration
+
+## Key Features
+
+- Full CRUD operations for task items
+- User-scoped task filtering (demo user ID: `user123`)
+- Automatic database migrations on startup
+- CORS-enabled for cross-origin requests
+- Jest test suite for frontend services
+- Docker dev and production configurations
+
+## Project Structure
+
+```
+code/
+  backend/TA-API/        .NET 10 API
+    Controllers/         API endpoints
+    Services/            Business logic + DbContext
+    Models/              Domain models + DTOs
+    Migrations/          EF Core migrations
+    Program.cs           App configuration
+
+  frontend/react/        React application
+    src/
+      app/pages/         Page components
+      app/components/    Reusable components
+      app/services/      API service classes
+    package.json         Dependencies
+```
+
+## Configuration
+
+### User ID
+Tasks are scoped to users. The frontend uses a hardcoded demo user ID: `user123`.
+To change it, edit `code/frontend/react/src/app/pages/TaskItems/TaskItemsPage.jsx` line 6.
+
+### Database
+- **Local** - `assessmentdb.sqlite` (auto-created in backend folder)
+- **Docker** - `./data/assessmentdb.sqlite` (persisted volume)
+
+## Running Tests
+
+```bash
+cd code/frontend/react
+npm test
+```
+
+## Troubleshooting
+
+- **Docker build fails** - Ensure Docker Desktop is running and ports 5148/3000 are free
+- **Frontend can't connect to API** - API URL auto-detects localhost vs Docker
+- **Database errors** - Migrations run automatically on app startup
+- **Port already in use** - Change ports in docker-compose.yml or stop conflicting services
+
+## More Info
+
+- See DOCKER-SETUP.md for detailed Docker commands
+- See SETUP.md for advanced development configuration
 
 ## Assessment Delivery Guidance
 
-**Priority:**  
-In this assessment, priority is given to completing all requested functionality.  
-Additional architectural improvements are appreciated but will **not** compensate for missing or incomplete core requirements.
-
-**Recommendation:**  
-Focus on delivering all requested features first.  
-Extra design patterns, abstractions, or architectural changes are only beneficial if they do not reduce the completeness of the deliverable.
-
----
-
-## Time Management Tips
-
-- **Read all requirements first** before writing code.
-- **Plan your approach**: break down the work into small, testable steps.
-- **Deliver the core features early** — aim to have a working version by the halfway mark.
-- **Use remaining time** for validation, error handling, and any bonus features.
-- **Avoid over-engineering**: keep architecture simple unless complexity is required by the problem.
-- **Test as you go** to avoid last-minute surprises.
-
+**Priority** - Focus on completing all requested functionality first.
+Additional architectural improvements are appreciated but will not compensate for missing core requirements.
 
 ## Versions
 
-- .NET 10
-    - Microsoft.EntityFrameworkCore.Sqlite
-    - Serilog.AspNetCore
-- Angular 21
+- .NET 10 (EF Core SQLite, Serilog)
 - React 19
-
-## Scaffolding Overview
-
-### Scenarios (Tracks)
-
-Pick one of the following scenarios during the assessment:
-
-- Orders System
-- Products System
-- Support Tickets
-
-### Frontend (Angular)
-
-The Angular app includes placeholder routes and pages for each scenario:
-
-- `/orders`
-- `/products`
-- `/support-tickets`
-
-These pages are intentionally minimal and serve as starting points for the assessment.
-
-### Backend (.NET)
-
-The API includes placeholder controller endpoints for each scenario:
-
-- `api/orders`
-- `api/products`
-- `api/support-tickets`
-
-Request models are organized under `code/backend/TA-API/Models/Requests`.
-
-## How to Build
-
-- Frontend (Angular)
-
-``` 
-pushd code/frontend/angular
-npm install
-npm start
-```
-- Frontend (React)
-``` 
-pushd code/frontend/react
-npm install
-npm start
-```
-- Backend
-
-``` 
-pushd code/backend/
-dotnet clean
-dotnet build
-dotnet run --project TA-API/TA-API.csproj
-``` 
+- Angular 21 

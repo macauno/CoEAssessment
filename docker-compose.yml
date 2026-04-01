@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: ./code/backend/TA-API
+      dockerfile: Dockerfile
+    container_name: task-api-backend
+    ports:
+      - "5148:5148"
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - ASPNETCORE_URLS=http://+:5148
+    - ConnectionStrings__AssessmentDB=Data Source=/app/data/assessmentdb.sqlite;
+    volumes:
+      - ./data:/app/data
+    networks:
+      - task-app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5148/lbhealth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    build:
+      context: ./code/frontend/react
+      dockerfile: Dockerfile
+    container_name: task-app-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - task-app-network
+    environment:
+      - REACT_APP_API_URL=http://backend:5148
+
+networks:
+  task-app-network:
+    driver: bridge
+
+volumes:
+  data:
